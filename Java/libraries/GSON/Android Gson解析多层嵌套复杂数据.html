@@ -1,0 +1,374 @@
+<html>
+<head>
+  <title>Evernote Export</title>
+  <basefont face="微软雅黑" size="2" />
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  <meta name="exporter-version" content="Evernote Windows/302292 (zh-CN); Windows/6.1.7601 Service Pack 1 (Win64);"/>
+  <style>
+    body, td {
+      font-family: 微软雅黑;
+      font-size: 10pt;
+    }
+  </style>
+</head>
+<body>
+<a name="3036"/>
+
+<div>
+<span><br/><div style="font-size: 16px"><div style="font-family:&apos;Microsoft YaHei&apos;;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;background-color:rgb(255, 255, 255);"><div style="font-family:&apos;Microsoft YaHei&apos;;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;background-color:rgb(255, 255, 255);"><div style="font-family:&apos;Microsoft YaHei&apos;;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;text-align:center;"><div style="font-family:&apos;Microsoft YaHei&apos;;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;"><div style="font-family:&apos;Microsoft YaHei&apos;;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;"><div style="font-family:&apos;Microsoft YaHei&apos;;text-decoration:none;padding:15px 0px;font-size:16px;color:rgb(7, 93, 179);text-align:center;border-bottom-width:1px;border-bottom-color:rgb(218, 218, 218);border-bottom-style:dotted;font-weight:bold;"><h1 style="font-family:&apos;Microsoft YaHei&apos;;padding:15px 0px;color:rgb(7, 93, 179);font-size:16px;font-weight:bold;">Android Gson解析多层嵌套复杂数据</h1></div><div style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;text-align:center;margin:20px 0px;">时间：<span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:rgb(37, 146, 53);">2014-08-06 19:04:32</span>      阅读：<span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:rgb(255, 102, 0);">6666</span>      评论：<span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:rgb(255, 102, 0);">0</span>      收藏：<span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:rgb(255, 102, 0);">0</span>      <a style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:rgb(51, 51, 51);cursor:pointer;">[点我收藏+]</a></div><div style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:12px;text-align:left;margin:20px 0px;word-wrap:break-word;"><p style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;"><span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;">标签：<a href="http://www.bubuko.com/so/1/android" style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:rgb(51, 51, 51);text-decoration:none;" title="android">android</a>   <a href="http://www.bubuko.com/so/1/gson" style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:rgb(51, 51, 51);text-decoration:none;" title="gson">gson</a>   </span></p><p style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;"><span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;"><span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:18px;">目前解析json有三种工具：org.json（Java常用的解析），fastjson（阿里巴巴工程师开发的），Gson（Google官网出的），解析速度最快的是Gson，下载地址：<a href="https://code.google.com/p/google-gson/" style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:rgb(51, 51, 51);text-decoration:none;" target="_blank">https://code.google.com/p/google-gson/</a></span></span></p><p style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;"><br style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;"/></p><p style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;"></p><p style="font-family:Helvetica,Tahoma,Arial,sans-serif;padding:0px;font-size:14px;color:rgb(54,46,43);text-decoration:none;margin-top:0px;margin-bottom:0px;padding-top:0px;padding-bottom:0px;"><span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:rgb(255,0,0);"><strong style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;"><span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:18px;">什么是JSON:</span></strong></span></p><p style="font-family:Helvetica,Tahoma,Arial,sans-serif;padding:0px;font-size:14px;color:rgb(54,46,43);text-decoration:none;margin-top:0px;margin-bottom:0px;padding-top:0px;padding-bottom:0px;"><span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:rgb(255,0,0);"><strong style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;"><span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:18px;"><br style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;"/></span></strong></span></p><p style="font-family:Helvetica,Tahoma,Arial,sans-serif;padding:0px;font-size:14px;color:rgb(54,46,43);text-decoration:none;margin-top:0px;margin-bottom:0px;padding-top:0px;padding-bottom:0px;"><span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:18px;">JSON即JavaScript Object Natation, 它是一种轻量级的数据交换格式, 与XML一样, 是广泛被采用的客户端和服务端交互的解决方案.</span></p><p style="font-family:Helvetica,Tahoma,Arial,sans-serif;padding:0px;font-size:14px;color:rgb(54,46,43);text-decoration:none;margin-top:0px;margin-bottom:0px;padding-top:0px;padding-bottom:0px;"><span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:18px;"><br style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;"/></span></p><p style="font-family:Helvetica,Tahoma,Arial,sans-serif;padding:0px;font-size:14px;color:rgb(54,46,43);text-decoration:none;margin-top:0px;margin-bottom:0px;padding-top:0px;padding-bottom:0px;"><strong style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;"><span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:rgb(255,0,0);"><span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:18px;">JSON对象: </span></span></strong></p><p style="font-family:Helvetica,Tahoma,Arial,sans-serif;padding:0px;font-size:14px;color:rgb(54,46,43);text-decoration:none;margin-top:0px;margin-bottom:0px;padding-top:0px;padding-bottom:0px;"><strong style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;"><span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:rgb(255,0,0);"><span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:18px;"><br style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;"/></span></span></strong></p><p style="font-family:Helvetica,Tahoma,Arial,sans-serif;padding:0px;font-size:14px;color:rgb(54,46,43);text-decoration:none;margin-top:0px;margin-bottom:0px;padding-top:0px;padding-bottom:0px;"><span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:18px;">JSON中对象(Object)以&quot;{&quot;开始, 以&quot;}&quot;结束. 对象中的每一个item都是一个key-value对, 表现为&quot;key:value&quot;的形式, key-value对之间使用逗号分隔. 如:{&quot;name&quot;:&quot;coolxing&quot;, &quot;age&quot;=24, &quot;male&quot;:true, &quot;address&quot;:{&quot;street&quot;:&quot;huiLongGuan&quot;, &quot;city&quot;:&quot;beijing&quot;, &quot;country&quot;:&quot;china&quot;}}. JSON对象的key只能是string类型的, 而value可以是string, number, false, true, null, Object对象甚至是array数组, 也就是说可以存在嵌套的情况.</span></p><p style="font-family:Helvetica,Tahoma,Arial,sans-serif;padding:0px;font-size:14px;color:rgb(54,46,43);text-decoration:none;margin-top:0px;margin-bottom:0px;padding-top:0px;padding-bottom:0px;"><span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:18px;"><br style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;"/></span></p><p style="font-family:Helvetica,Tahoma,Arial,sans-serif;padding:0px;font-size:14px;color:rgb(54,46,43);text-decoration:none;margin-top:0px;margin-bottom:0px;padding-top:0px;padding-bottom:0px;"><strong style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;"><span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:rgb(255,0,0);"><span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:18px;">JSON数组: </span></span></strong></p><p style="font-family:Helvetica,Tahoma,Arial,sans-serif;padding:0px;font-size:14px;color:rgb(54,46,43);text-decoration:none;margin-top:0px;margin-bottom:0px;padding-top:0px;padding-bottom:0px;"><strong style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;"><span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:rgb(255,0,0);"><span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:18px;"><br style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;"/></span></span></strong></p><p style="font-family:Helvetica,Tahoma,Arial,sans-serif;padding:0px;font-size:14px;color:rgb(54,46,43);text-decoration:none;margin-top:0px;margin-bottom:0px;padding-top:0px;padding-bottom:0px;"><span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:18px;">JSON数组(array)以&quot;[&quot;开始, 以&quot;]&quot;结束, 数组中的每一个元素可以是string, number, false, true, null, Object对象甚至是array数组, 数组间的元素使用逗号分隔. 如[&quot;coolxing&quot;, 24, {&quot;street&quot;:&quot;huiLongGuan&quot;, &quot;city&quot;:&quot;beijing&quot;, &quot;country&quot;:&quot;china&quot;}].</span></p><p style="font-family:Helvetica,Tahoma,Arial,sans-serif;padding:0px;font-size:14px;color:rgb(54,46,43);text-decoration:none;margin-top:0px;margin-bottom:0px;padding-top:0px;padding-bottom:0px;"><span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:18px;"><br style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;"/></span></p><p style="font-family:Helvetica,Tahoma,Arial,sans-serif;padding:0px;font-size:14px;color:rgb(54,46,43);text-decoration:none;margin-top:0px;margin-bottom:0px;padding-top:0px;padding-bottom:0px;"><span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:18px;">Gson的基本使用方法：</span></p><p style="font-family:Helvetica,Tahoma,Arial,sans-serif;padding:0px;font-size:14px;color:rgb(54,46,43);text-decoration:none;margin-top:0px;margin-bottom:0px;padding-top:0px;padding-bottom:0px;"></p><p style="font-family:‘Courier New‘,宋体,Consolas,‘YaHei Consolas Hybrid‘,‘Microsoft YaHei‘,Arial,Courier,monospace;font-size:14px;color:rgb(63, 63, 63);text-decoration:none;padding:0px;margin-top:0px;margin-bottom:0px;padding-top:0px;padding-bottom:0px;border:0px;"><strong style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;">通过获取JsonReader对象解析JSON数据：<br style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;"/></strong></p><div style="font-family:‘Courier New‘,宋体,Consolas,‘YaHei Consolas Hybrid‘,‘Microsoft YaHei‘,Arial,Courier,monospace;padding:6px 8px;font-size:14px;color:rgb(63, 63, 63);text-decoration:none;margin:10px 8px 20px 0px;border:1px dashed rgb(120,136,86);background-color:rgb(245,245,245);overflow:auto;"><pre style="font-family:‘Courier New‘,Courier,monospace;padding:5px;border:1px dotted rgb(170, 170, 170);background-color:rgb(246, 246, 246);font-size:12px;">
+String jsonData = &quot;[{\&quot;username\&quot;:\&quot;arthinking\&quot;,\&quot;userId\&quot;:001},{\&quot;username\&quot;:\&quot;Jason\&quot;,\&quot;userId\&quot;:002}]&quot;;
+try{
+        JsonReader reader = new JsonReader(new StringReader(jsonData));
+        reader.beginArray();
+        while(reader.hasNext()){
+                reader.beginObject();
+                while(reader.hasNext()){
+                        String tagName = reader.nextName();
+                        if(tagName.equals(&quot;username&quot;)){
+                                System.out.println(reader.nextString());
+                        }
+                        else if(tagName.equals(&quot;userId&quot;)){
+                                System.out.println(reader.nextString());
+                        }
+                }
+                reader.endObject();
+        }
+        reader.endArray();
+}
+catch(Exception e){
+        e.printStackTrace();
+}
+</pre></div><p style="font-family:Helvetica,Tahoma,Arial,sans-serif;padding:0px;font-size:14px;color:rgb(54,46,43);text-decoration:none;margin-top:0px;margin-bottom:0px;padding-top:0px;padding-bottom:0px;"></p><pre style="font-family:‘Courier New‘,Courier,monospace;padding:5px;border:1px dotted rgb(170, 170, 170);background-color:rgb(246, 246, 246);"></pre><p style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;"></p><p style="font-family:‘Courier New‘,宋体,Consolas,‘YaHei Consolas Hybrid‘,‘Microsoft YaHei‘,Arial,Courier,monospace;font-size:14px;color:rgb(63, 63, 63);text-decoration:none;padding:0px;margin-top:0px;margin-bottom:0px;padding-top:0px;padding-bottom:0px;border:0px;"><strong style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;">通过把JSON数据映射成一个对象，使用Gson对象的fromJson()方法获取一个对象数组进行操作：</strong></p><p style="font-family:‘Courier New‘,宋体,Consolas,‘YaHei Consolas Hybrid‘,‘Microsoft YaHei‘,Arial,Courier,monospace;font-size:14px;color:rgb(63, 63, 63);text-decoration:none;padding:0px;margin-top:0px;margin-bottom:0px;padding-top:0px;padding-bottom:0px;border:0px;">创建JSON数据对应的一个POJO对象User.java：</p><div style="font-family:‘Courier New‘,宋体,Consolas,‘YaHei Consolas Hybrid‘,‘Microsoft YaHei‘,Arial,Courier,monospace;padding:6px 8px;font-size:14px;color:rgb(63, 63, 63);text-decoration:none;margin:10px 8px 20px 0px;border:1px dashed rgb(120,136,86);background-color:rgb(245,245,245);overflow:auto;"><pre style="font-family:‘Courier New‘,Courier,monospace;padding:5px;border:1px dotted rgb(170, 170, 170);background-color:rgb(246, 246, 246);font-size:12px;">
+public class User {
+        private String username ;
+        private int userId ;
+        public String getUsername() {
+                return username;
+        }
+        public void setUsername(String username) {
+                this.username = username;
+        }
+        public int getUserId() {
+                return userId;
+        }
+        public void setUserId(int userId) {
+                this.userId = userId;
+        }
+}
+</pre></div><p style="font-family:‘Courier New‘,宋体,Consolas,‘YaHei Consolas Hybrid‘,‘Microsoft YaHei‘,Arial,Courier,monospace;font-size:14px;color:rgb(63, 63, 63);text-decoration:none;padding:0px;margin-top:0px;margin-bottom:0px;padding-top:0px;padding-bottom:0px;border:0px;">使用Gson对象获取User对象数据进行相应的操作：</p><div style="font-family:‘Courier New‘,宋体,Consolas,‘YaHei Consolas Hybrid‘,‘Microsoft YaHei‘,Arial,Courier,monospace;padding:6px 8px;font-size:14px;color:rgb(63, 63, 63);text-decoration:none;margin:10px 8px 20px 0px;border:1px dashed rgb(120,136,86);background-color:rgb(245,245,245);overflow:auto;"><pre style="font-family:‘Courier New‘,Courier,monospace;padding:5px;border:1px dotted rgb(170, 170, 170);background-color:rgb(246, 246, 246);font-size:12px;">
+Type listType = new TypeToken&lt;LinkedList&lt;User&gt;&gt;(){}.getType();
+Gson gson = new Gson();
+LinkedList&lt;User&gt; users = gson.fromJson(jsonData, listType);
+for (Iterator iterator = users.iterator(); iterator.hasNext();) {
+        User user = (User) iterator.next();
+        System.out.println(user.getUsername());
+        System.out.println(user.getUserId());
+}
+</pre></div><p style="font-family:‘Courier New‘,宋体,Consolas,‘YaHei Consolas Hybrid‘,‘Microsoft YaHei‘,Arial,Courier,monospace;font-size:14px;color:rgb(63, 63, 63);text-decoration:none;padding:0px;margin-top:0px;margin-bottom:0px;padding-top:0px;padding-bottom:0px;border:0px;">如果要处理的JSON字符串只包含一个JSON对象，则可以直接使用fromJson获取一个User对象：</p><div style="font-family:‘Courier New‘,宋体,Consolas,‘YaHei Consolas Hybrid‘,‘Microsoft YaHei‘,Arial,Courier,monospace;padding:6px 8px;font-size:14px;color:rgb(63, 63, 63);text-decoration:none;margin:10px 8px 20px 0px;border:1px dashed rgb(120,136,86);background-color:rgb(245,245,245);overflow:auto;"><pre style="font-family:‘Courier New‘,Courier,monospace;padding:5px;border:1px dotted rgb(170, 170, 170);background-color:rgb(246, 246, 246);font-size:12px;">
+String jsonData = &quot;{\&quot;username\&quot;:\&quot;arthinking\&quot;,\&quot;userId\&quot;:001}&quot;;
+Gson gson = new Gson();
+User user = gson.fromJson(jsonData, User.class);
+System.out.println(user.getUsername());
+System.out.println(user.getUserId());
+</pre></div><span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:24px;">解析复杂实例：</span><p style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;"><span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:18px;">数据格式：</span></p><p style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;"></p><pre style="font-family:&apos;Microsoft YaHei&apos;;padding:5px;border:1px dotted rgb(170, 170, 170);background-color:rgb(246, 246, 246);">
+{
+    &quot;data&quot;: {
+        &quot;partnerteamlist&quot;: [
+            {
+                &quot;pteamId&quot;: 72825,
+                &quot;ptitle&quot;: &quot;随摄影/共6套服装/准爸准妈共拍/免费肚画/底片全送。&quot;,
+                &quot;pteamprice&quot;: 288
+            },
+            {
+                &quot;pteamId&quot;: 72598,
+                &quot;ptitle&quot;: &quot;随摄影/拍摄200张/4本相册/品质拍摄/送全新婚纱。&quot;,
+                &quot;pteamprice&quot;: 2888
+            },
+            {
+                &quot;pteamId&quot;: 72613,
+                &quot;ptitle&quot;: &quot;随摄影/送全新婚纱/多外景拍摄/服装不限数量/绝无二次消费！&quot;,
+                &quot;pteamprice&quot;: 3699
+            },
+            {
+                &quot;pteamId&quot;: 72638,
+                &quot;ptitle&quot;: &quot;随摄影/服装不限数量/高品质拍摄260张/送全新婚纱。&quot;,
+                &quot;pteamprice&quot;: 4299
+            },
+            {
+                &quot;pteamId&quot;: 72716,
+                &quot;ptitle&quot;: &quot;随摄影/3组服装造型/内外景拍摄/完全透明消费！&quot;,
+                &quot;pteamprice&quot;: 388
+            }
+        ],
+        &quot;liketeamlist&quot;: [
+            {
+                &quot;lteamId&quot;: 65886,
+                &quot;ltitle&quot;: &quot;爱丽尔婚纱摄影/2本相册/6套服装造型/拍摄不限最低拍摄150张。&quot;,
+                &quot;limage&quot;: &quot;http://img.pztuan.com/upfile/team/2013/0712/201307120257551465.jpg&quot;,
+                &quot;lteamprice&quot;: 518,
+                &quot;lmarketprice&quot;: 3999
+            },
+            {
+                &quot;lteamId&quot;: 57133,
+                &quot;ltitle&quot;: &quot;陶冶摄影/婚纱闺蜜/6组服装造型/拍摄不低于120张！&quot;,
+                &quot;limage&quot;: &quot;http://img.pztuan.com/upfile/team/2013/0628/201306281115249737.jpg&quot;,
+                &quot;lteamprice&quot;: 580,
+                &quot;lmarketprice&quot;: 3380
+            }
+        ],
+        &quot;feedbacks&quot;: {
+            &quot;feedbacklist&quot;: [
+                {
+                    &quot;comment&quot;: &quot;5分&quot;,
+                    &quot;createtime&quot;: &quot;2014.07.08 13:38&quot;,
+                    &quot;score&quot;: 5,
+                    &quot;username&quot;: &quot;l***2&quot;
+                }
+            ],
+            &quot;totalcount&quot;: 1,
+            &quot;totalscore&quot;: 5
+        }
+    },
+    &quot;err&quot;: null,
+    &quot;state&quot;: 1
+}
+</pre><br style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;"/><span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:18px;">实体类（里面的成员变量和接口的返回值名称一 一对应才能保证解析正确）：</span><p style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;"></p><p style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;"></p><pre style="font-family:&apos;Microsoft YaHei&apos;;padding:5px;border:1px dotted rgb(170, 170, 170);background-color:rgb(246, 246, 246);">
+package com.pztuan.entity;
+
+import java.util.List;
+
+public class OtherDetail {
+
+        private int state;
+        private List&lt;err&gt; err;
+        private OtherDetail2 data;
+
+        public int getState() {
+                return state;
+        }
+
+        public void setState(int state) {
+                this.state = state;
+        }
+
+        public List&lt;err&gt; getErr() {
+                return err;
+        }
+
+        public void setErr(List&lt;err&gt; err) {
+                this.err = err;
+        }
+
+        public OtherDetail2 getData() {
+                return data;
+        }
+
+        public void setData(OtherDetail2 data) {
+                this.data = data;
+        }
+
+        public class OtherDetail2 {
+                private List&lt;partnerteamlist&gt; partnerteamlist;
+                private List&lt;liketeamlist&gt; liketeamlist;
+                private List&lt;feedbacks&gt; feedbacks;
+
+                public List&lt;liketeamlist&gt; getLiketeamlist() {
+                        return liketeamlist;
+                }
+
+                public void setLiketeamlist(List&lt;liketeamlist&gt; liketeamlist) {
+                        this.liketeamlist = liketeamlist;
+                }
+
+                public List&lt;feedbacks&gt; getFeedbacks() {
+                        return feedbacks;
+                }
+
+                public void setFeedbacks(List&lt;feedbacks&gt; feedbacks) {
+                        this.feedbacks = feedbacks;
+                }
+
+                public class partnerteamlist {
+                        private int pteamId;
+                        private String ptitle;
+                        private Double pteamprice;
+
+                        public int getPteamId() {
+                                return pteamId;
+                        }
+
+                        public void setPteamId(int pteamId) {
+                                this.pteamId = pteamId;
+                        }
+
+                        public String getPtitle() {
+                                return ptitle;
+                        }
+
+                        public void setPtitle(String ptitle) {
+                                this.ptitle = ptitle;
+                        }
+
+                        public Double getPteamprice() {
+                                return pteamprice;
+                        }
+
+                        public void setPteamprice(Double pteamprice) {
+                                this.pteamprice = pteamprice;
+                        }
+
+                }
+
+                public class liketeamlist {
+                        private int lteamId;
+                        private String ltitle;
+                        private String limage;
+                        private Double lteamprice;
+                        private Double lmarketprice;
+
+                        public int getLteamId() {
+                                return lteamId;
+                        }
+
+                        public void setLteamId(int lteamId) {
+                                this.lteamId = lteamId;
+                        }
+
+                        public String getLtitle() {
+                                return ltitle;
+                        }
+
+                        public void setLtitle(String ltitle) {
+                                this.ltitle = ltitle;
+                        }
+
+                        public String getLimage() {
+                                return limage;
+                        }
+
+                        public void setLimage(String limage) {
+                                this.limage = limage;
+                        }
+
+                        public Double getLteamprice() {
+                                return lteamprice;
+                        }
+
+                        public void setLteamprice(Double lteamprice) {
+                                this.lteamprice = lteamprice;
+                        }
+
+                        public Double getLmarketprice() {
+                                return lmarketprice;
+                        }
+
+                        public void setLmarketprice(Double lmarketprice) {
+                                this.lmarketprice = lmarketprice;
+                        }
+                }
+
+                public class feedbacks {
+                        private int totalcount;
+                        private Double totalscore;
+                        private List&lt;feedbacklist&gt; feedbacklist;
+
+                        public int getTotalcount() {
+                                return totalcount;
+                        }
+
+                        public void setTotalcount(int totalcount) {
+                                this.totalcount = totalcount;
+                        }
+
+                        public Double getTotalscore() {
+                                return totalscore;
+                        }
+
+                        public void setTotalscore(Double totalscore) {
+                                this.totalscore = totalscore;
+                        }
+
+                        public List&lt;feedbacklist&gt; getFeedbacklist() {
+                                return feedbacklist;
+                        }
+
+                        public void setFeedbacklist(List&lt;feedbacklist&gt; feedbacklist) {
+                                this.feedbacklist = feedbacklist;
+                        }
+
+                        public class feedbacklist {
+                                private String username;
+                                private String comment;
+                                private String createtime;
+                                private Double score;
+
+                                public String getUsername() {
+                                        return username;
+                                }
+
+                                public void setUsername(String username) {
+                                        this.username = username;
+                                }
+
+                                public String getComment() {
+                                        return comment;
+                                }
+
+                                public void setComment(String comment) {
+                                        this.comment = comment;
+                                }
+
+                                public String getCreatetime() {
+                                        return createtime;
+                                }
+
+                                public void setCreatetime(String createtime) {
+                                        this.createtime = createtime;
+                                }
+
+                                public Double getScore() {
+                                        return score;
+                                }
+
+                                public void setScore(Double score) {
+                                        this.score = score;
+                                }
+
+                        }
+                }
+
+                public List&lt;partnerteamlist&gt; getPartnerteamlist() {
+                        return partnerteamlist;
+                }
+
+                public void setPartnerteamlist(List&lt;partnerteamlist&gt; partnerteamlist) {
+                        this.partnerteamlist = partnerteamlist;
+                }
+        }
+
+        public class err {
+                private int code;
+                private String msg;
+
+                public int getCode() {
+                        return code;
+                }
+
+                public void setCode(int code) {
+                        this.code = code;
+                }
+
+                public String getMsg() {
+                        return msg;
+                }
+
+                public void setMsg(String msg) {
+                        this.msg = msg;
+                }
+        }
+}
+</pre><br style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;"/><span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:#ff0000;"><span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:18px;">注意上面内部类的运用。</span></span><p style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;"></p><p style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;"><span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:18px;">解析：</span></p><pre style="font-family:&apos;Microsoft YaHei&apos;;padding:5px;border:1px dotted rgb(170, 170, 170);background-color:rgb(246, 246, 246);">
+Gson gson = new Gson();
+OtherDetail d = gson.fromJson(jsonString,Detail.class);//取值的时候就从父类一层一层调子类成员（重要）
+</pre><p style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;"></p><p style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;"><span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:18px;color:#ff0000;">若出现引用异常，请查看Java内部类设计原则。</span></p><p style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;"><span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:18px;color:#ff0000;">如有问题请留言，转载注明出处。</span></p><p style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;"><span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:18px;">参考：<a href="http://www.itzhai.com/android-to-parse-json-data-using-gson.html" style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:rgb(51, 51, 51);text-decoration:none;" target="_blank">http://www.itzhai.com/android-to-parse-json-data-using-gson.html</a></span></p><p style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;"><span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:18px;">           <a href="http://blog.csdn.net/caijunjun1006/article/details/11762841" style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:rgb(51, 51, 51);text-decoration:none;" target="_blank">http://blog.csdn.net/caijunjun1006/article/details/11762841</a></span><br style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;"/></p><p style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;"><br style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;"/></p><p style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:14px;color:#ffffff;text-decoration:none;"><a href="http://www.bubuko.com/infodetail-297734.html" style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:#ffffff;text-decoration:none;" target="_blank" title="Android Gson解析多层嵌套复杂数据,bubuko.com">Android Gson解析多层嵌套复杂数据,布布扣,bubuko.com</a></p><p style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;"><a href="http://www.bubuko.com/infodetail-297734.html" style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:#ffffff;text-decoration:none;" target="_blank" title="Android Gson解析多层嵌套复杂数据,bubuko.com">Android Gson解析多层嵌套复杂数据</a></p><p style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:14px;">标签：<a href="http://www.bubuko.com/so/1/android" style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:rgb(51, 51, 51);text-decoration:none;" title="android">android</a>   <a href="http://www.bubuko.com/so/1/gson" style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:rgb(51, 51, 51);text-decoration:none;" title="gson">gson</a>   </p></div><div style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;"><div style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;"><div style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;text-align:center;"><div style="width:60px;font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:rgb(63, 63, 63);text-decoration:none;font-size:12px;margin-left:20px;float:right;cursor:pointer;border:1px solid rgb(225, 225, 225);border-radius:5px;"><div style="font-family:&apos;Microsoft YaHei&apos;;text-decoration:none;padding:10px 0px 6px;font-size:22px;color:rgb(37, 146, 53);font-weight:bold;">踩</div><div style="font-family:&apos;Microsoft YaHei&apos;;font-size:12px;text-decoration:none;padding:5px 0px;color:rgb(37, 146, 53);font-weight:bold;border-top-width:1px;border-top-color:rgb(225, 225, 225);border-top-style:solid;">(<span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;">0</span>)</div></div><div style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;width:60px;float:right;cursor:pointer;border:1px solid rgb(225, 225, 225);border-radius:5px;"><div style="font-family:&apos;Microsoft YaHei&apos;;text-decoration:none;padding:10px 0px 6px;font-size:22px;color:rgb(255, 102, 0);font-weight:bold;">赞</div><div style="font-family:&apos;Microsoft YaHei&apos;;font-size:12px;text-decoration:none;padding:5px 0px;color:rgb(255, 102, 0);font-weight:bold;border-top-width:1px;border-top-color:rgb(225, 225, 225);border-top-style:solid;">(<span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;">0</span>)</div></div></div><div style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;text-align:right;margin-top:10px;"><div style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;width:100%;padding-left:10px;padding-right:10px;">   </div></div></div><div style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;text-align:right;margin-top:10px;"><span style="font-family:&apos;Microsoft YaHei&apos;;padding:4px 8px;color:red;font-size:14px;font-weight:bold;cursor:pointer;border:1px solid rgb(225, 225, 225);border-radius:5px;">举报</span></div><div style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;margin-top:20px;"><div style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;float:left;"><ins style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;display:inline-block;visibility:hidden;orphans:4321;width:336px;height:280px;"></ins></div><div style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;float:right;"><ins style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;display:inline-block;visibility:hidden;orphans:4321;width:336px;height:280px;"></ins></div></div><div style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;text-align:left;margin-top:20px;"><div style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;height:30px;border-bottom-width:1px;border-bottom-color:rgb(225, 225, 225);border-bottom-style:solid;"><span style="border-top-color:rgb(225, 225, 225);font-family:&apos;Microsoft YaHei&apos;;border-top-style:solid;float:left;display:block;border-left-width:1px;border-left-color:rgb(225, 225, 225);border-left-style:solid;border-top-width:1px;padding:4px 20px 2px;text-align:center;border-right-width:1px;border-right-color:rgb(225, 225, 225);border-right-style:solid;border-top-left-radius:5px;border-top-right-radius:5px;font-size:18px;font-weight:bold;color:rgb(93, 93, 93);">评论</span> <span style="font-family:&apos;Microsoft YaHei&apos;;padding:10px 0px 2px 5px;float:left;text-align:center;display:block;">一句话评论（<span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-weight:bold;color:rgb(255, 102, 0);">0</span>）</span></div><div style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;padding-top:20px;"><div style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;text-align:center;margin-top:20px;"><span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;">共<span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;color:rgb(255, 102, 0);font-weight:bold;">0</span>条  </span></div></div><div style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;margin-top:20px;"><div style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;"><div style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-size:12px;color:rgb(63, 63, 63);text-decoration:none;text-align:right;padding-top:10px;"><span style="font-family:&apos;Microsoft YaHei&apos;;padding:0px;font-weight:bold;color:rgb(255, 102, 0);">登录后才能评论！</span></div></div></div></div></div></div></div></div></div></div></div><br/></span>
+</div></body></html> 
