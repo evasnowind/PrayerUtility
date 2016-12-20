@@ -1,0 +1,1 @@
+judge the rom of mobilephone is EMUI/MIUI/Flyme
