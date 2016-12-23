@@ -1,0 +1,1 @@
+LockPatternView.java and LockPatternUtils.java comes from Android SDK. You can develop gesture password widget based on LockPatternView, which is showed in this page: http://www.cnblogs.com/dyingbleed/archive/2012/12/03/2800007.html . 
