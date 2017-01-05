@@ -1,4 +1,4 @@
-package com.prayerlaputa.io;
+package test;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -18,12 +18,12 @@ public class FileUtils {
 
 	/**
 	 * <p>
-	 * ¶ÁÈ¡ÎÄ¼ş¡£
+	 * è¯»å–æ–‡ä»¶ã€‚
 	 * </p>
 	 * 
-	 * @param filePath ÎÄ¼şÂ·¾¶
+	 * @param filePath æ–‡ä»¶è·¯å¾„
 	 * 
-	 * @return ÎÄ¼şÊı¾İ
+	 * @return æ–‡ä»¶æ•°æ®
 	 */
 	public static final byte[] readFile(String filePath) {
 		if(null == filePath || filePath.trim().length() <= 0){
@@ -54,12 +54,12 @@ public class FileUtils {
 	
 	/**
 	 * <p>
-	 * ±£´æÎÄ¼ş£¬²ÉÓÃÆÕÍ¨Á÷·½Ê½±£´æ¡£<br>
-	 * Èç¹ûfilePathÊÇÂ·¾¶Ôò´´½¨£¨²»´æÔÚÊ±£©£»Èç¹ûÊÇÎÄ¼şÔò±£´æ¡£
+	 * ä¿å­˜æ–‡ä»¶ï¼Œé‡‡ç”¨æ™®é€šæµæ–¹å¼ä¿å­˜ã€‚<br>
+	 * å¦‚æœfilePathæ˜¯è·¯å¾„åˆ™åˆ›å»ºï¼ˆä¸å­˜åœ¨æ—¶ï¼‰ï¼›å¦‚æœæ˜¯æ–‡ä»¶åˆ™ä¿å­˜ã€‚
 	 * </p>
 	 * 
-	 * @param filePath ÎÄ¼şÂ·¾¶
-	 * @param buffer ÄÚÈİ
+	 * @param filePath æ–‡ä»¶è·¯å¾„
+	 * @param buffer å†…å®¹
 	 */
 	public static final void saveFile(String filePath, byte[] buffer) {
 		if (null == filePath || filePath.trim().equals("")) {
@@ -70,7 +70,7 @@ public class FileUtils {
 		}
 
 		if (filePath.endsWith("/")) {
-			// Êı¾İÒÔ/½áÎ²£¨Àı£ºhome/data/£©£¬±íÊ¾ÊÇÂ·¾¶£¬´ËÊ±Ó¦½¨Á¢ÎÄ¼ş¼Ğ
+			// æ•°æ®ä»¥/ç»“å°¾ï¼ˆä¾‹ï¼šhome/data/ï¼‰ï¼Œè¡¨ç¤ºæ˜¯è·¯å¾„ï¼Œæ­¤æ—¶åº”å»ºç«‹æ–‡ä»¶å¤¹
 			createFileDir(filePath);
 		} else {
 			createFile(filePath, buffer);
@@ -79,18 +79,18 @@ public class FileUtils {
 	
 	/**
 	 * <p>
-	 * ´´½¨ÎÄ¼ş
+	 * åˆ›å»ºæ–‡ä»¶
 	 * </p>
 	 * 
-	 * @param path ÎÄ¼şÂ·¾¶
-	 * @param buffer ´ı±£´æ±ÈÌØÁ÷
+	 * @param path æ–‡ä»¶è·¯å¾„
+	 * @param buffer å¾…ä¿å­˜æ¯”ç‰¹æµ
 	 */
 	public static final void createFile(String path, byte[] buffer) {
 		File file = null;
 		FileOutputStream fstream = null;
 		try {
 			file = new File(path);
-			// ÅĞ¶Ï¸¸Ä¿Â¼ÊÇ·ñ´æÔÚ
+			// åˆ¤æ–­çˆ¶ç›®å½•æ˜¯å¦å­˜åœ¨
 			if (!file.exists()) {
 				File fileDir = file.getParentFile();
 				fileDir.mkdirs();
@@ -113,10 +113,10 @@ public class FileUtils {
 	
 	/**
 	 * <p>
-	 * ´´½¨Ä¿Â¼¡£
+	 * åˆ›å»ºç›®å½•ã€‚
 	 * </p>
 	 * 
-	 * @param path Ä¿Â¼
+	 * @param path ç›®å½•
 	 */
 	public static final void createFileDir(String path) {
 		File file = new File(path);
@@ -127,12 +127,12 @@ public class FileUtils {
 
 	/**
 	 * <p>
-	 * É¾³ıÎÄ¼ş»òÄ¿Â¼¡£
+	 * åˆ é™¤æ–‡ä»¶æˆ–ç›®å½•ã€‚
 	 * </p>
 	 * 
-	 * @param filePath ÎÄ¼şÂ·¾¶
+	 * @param filePath æ–‡ä»¶è·¯å¾„
 	 * 
-	 * @return É¾³ı³É¹¦·µ»Øtrue£¬·ñÔò·µ»Øfalse¡£
+	 * @return åˆ é™¤æˆåŠŸè¿”å›trueï¼Œå¦åˆ™è¿”å›falseã€‚
 	 */
 	public static final boolean deleteFile(String filePath) {
 		File file = new File(filePath);
@@ -148,7 +148,7 @@ public class FileUtils {
 					deleteFile(tempF.getPath());
 				}
 			}
-			// É¾³ıfile ±¾Éí
+			// åˆ é™¤file æœ¬èº«
 			return file.delete();
 		}
 		return true;
@@ -157,13 +157,13 @@ public class FileUtils {
 	
 	/**
 	 * <p>
-	 * ¸´ÖÆÎÄ¼ş
+	 * å¤åˆ¶æ–‡ä»¶
 	 * </p>
 	 * 
-	 * @param in ÊäÈëÁ÷
-	 * @param targetPath Ä¿±êÂ·¾¶£¨ÎÄ¼şÂ·¾¶£©
+	 * @param in è¾“å…¥æµ
+	 * @param targetPath ç›®æ ‡è·¯å¾„ï¼ˆæ–‡ä»¶è·¯å¾„ï¼‰
 	 * 
-	 * @throws IOException Å×³öÒì³£
+	 * @throws IOException æŠ›å‡ºå¼‚å¸¸
 	 */
 	public static final void copyFile(InputStream in, String targetPath) throws IOException {
 		if (in == null || null == targetPath || targetPath.trim().equals("")) {
@@ -181,25 +181,25 @@ public class FileUtils {
 
 			inBuff = new BufferedInputStream(in);
 			/*
-			 * BufferedOutputStreamÄ¬ÈÏ»º³åÇø´óĞ¡8*1024byte£¨¿ÉÒÔ×Ô¼ºÖ¸¶¨£©
+			 * BufferedOutputStreamé»˜è®¤ç¼“å†²åŒºå¤§å°8*1024byteï¼ˆå¯ä»¥è‡ªå·±æŒ‡å®šï¼‰
 			 */
 			outBuff = new BufferedOutputStream(new FileOutputStream(targetFile, false));
 
-			// »º³åÊı×é
+			// ç¼“å†²æ•°ç»„
 			byte[] bytes = new byte[1024 * 5];
 			int len;
 			while ((len = inBuff.read(bytes)) != -1) {
 				/*
-				 * ²é¿´BufferedOutputStreamÔ´Âë¿ÉÖ»£¬Õâ¸öwrite·½·¨²¢²»Ò»¶¨Á¢¼´Ö´ĞĞĞ´Èë²Ù×÷£¬
-				 * Ö»ÓĞBufferedOutputStreamÄÚ²¿»º³åÇøĞ´ÂúÊı¾İ²Å»á´¥·¢Êµ¼ÊµÄĞ´Èë²Ù×÷£¬Òò´Ë
-				 * ÔÚ±¾´ÎÑ­»·½áÊøºóĞèÒªÖ´ĞĞflush²Ù×÷£¬±ÜÃâ³öÏÖBufferedOutputStreamÄÚ²¿»º³åÇø
-				 * ÓĞ²¿·ÖÊı¾İÃ»Ğ´ÈëÎÄ¼şµÄÇé¿ö
+				 * æŸ¥çœ‹BufferedOutputStreamæºç å¯åªï¼Œè¿™ä¸ªwriteæ–¹æ³•å¹¶ä¸ä¸€å®šç«‹å³æ‰§è¡Œå†™å…¥æ“ä½œï¼Œ
+				 * åªæœ‰BufferedOutputStreamå†…éƒ¨ç¼“å†²åŒºå†™æ»¡æ•°æ®æ‰ä¼šè§¦å‘å®é™…çš„å†™å…¥æ“ä½œï¼Œå› æ­¤
+				 * åœ¨æœ¬æ¬¡å¾ªç¯ç»“æŸåéœ€è¦æ‰§è¡Œflushæ“ä½œï¼Œé¿å…å‡ºç°BufferedOutputStreamå†…éƒ¨ç¼“å†²åŒº
+				 * æœ‰éƒ¨åˆ†æ•°æ®æ²¡å†™å…¥æ–‡ä»¶çš„æƒ…å†µ
 				 * 
-				 * PS£ºBufferedOutputStream.write·½·¨ÒÑ¾­ÓÃsychronized£¨ÊµÀı¼¶±ğµÄËø£©ĞŞÊÎ
+				 * PSï¼šBufferedOutputStream.writeæ–¹æ³•å·²ç»ç”¨sychronizedï¼ˆå®ä¾‹çº§åˆ«çš„é”ï¼‰ä¿®é¥°
 				 */
 				outBuff.write(bytes, 0, len);
 			}
-			// Ë¢ĞÂ´Ë»º³åµÄÊä³öÁ÷
+			// åˆ·æ–°æ­¤ç¼“å†²çš„è¾“å‡ºæµ
 			outBuff.flush();
 		} finally {
 			if (inBuff != null) {
@@ -209,6 +209,25 @@ public class FileUtils {
 				outBuff.close();
 			}
 		}
+	}
+	
+
+	/**
+	 * ç§»é™¤UTF-8æ–‡ä»¶å¤´çš„BOM
+	 * å‚è€ƒï¼šhttp://blog.sina.com.cn/s/blog_6fde92030100x0v7.html
+	 * @param bt
+	 * @return
+	 */
+	public static byte[] removeUTF8BOM(byte[] bt) {
+		if (bt != null && bt.length > 3) {
+			// å‰ä¸‰ä¸ªå­—èŠ‚ä¾æ¬¡æ˜¯ EF BB BF
+			if (bt[0] == -17 && bt[1] == -69 && bt[2] == -65) {
+	        	byte[] nbs = new byte[bt.length - 3];
+	        	System.arraycopy(bt, 3, nbs, 0, nbs.length);
+	        	return nbs;
+	        }
+		}
+		return bt;
 	}
 	
 }
