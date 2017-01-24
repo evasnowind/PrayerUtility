@@ -1,6 +1,7 @@
 package com.prayer.testdemo;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -34,7 +35,6 @@ public class ImageUtils {
 				Uri imageUri = data.getData();
 			}
 		}
-		
 	}
 
 	//storageUri必须是一个SD卡地址，以便保存清晰照片
@@ -125,6 +125,7 @@ public class ImageUtils {
 		} finally{
 			if(fos != null){
 				try {
+					fos.flush();
 					fos.close();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -133,4 +134,82 @@ public class ImageUtils {
 			}
 		}
 	}
+	
+	/*
+	 * 以下代码取自：Android 将文件保存到SD卡，从卡中取文件，及删除文件
+	 * 地址：http://www.cnblogs.com/dyllove98/archive/2013/07/01/3165584.html 
+	 */
+	
+	//保存到SD卡  
+	private static String sdState = Environment.getExternalStorageState();
+	private static String path = Environment.getExternalStorageDirectory().toString();
+
+	public static void saveBitmap(Bitmap bitmap, String imageName) {
+		File file;
+		File PicName;
+		if (sdState.equals(Environment.MEDIA_MOUNTED)) {
+			// 获得sd卡根目录
+			file = new File(path + "/Huai/TicketsPic");
+			if (!file.exists()) {
+				file.mkdirs();
+			}
+			PicName = new File(file, imageName);
+			try {
+				if (!PicName.exists()) {
+					PicName.createNewFile();
+				}
+				FileOutputStream fos = new FileOutputStream(PicName);
+				if (PicName.getName().endsWith(".png")) {
+					bitmap.compress(CompressFormat.PNG, 100, fos);
+				} else if (PicName.getName().endsWith(".jpg")) {
+					bitmap.compress(CompressFormat.JPEG, 100, fos);
+				}
+				fos.flush();
+				fos.close();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	// 从SD卡取
+	public static Bitmap getBitmap(String imageName) {
+		Bitmap bitmap = null;
+		File imagePic;
+		if (sdState.equals(Environment.MEDIA_MOUNTED)) {
+
+			imagePic = new File(path + "/Huai/TicketsPic", imageName);
+			if (imagePic.exists()) {
+				try {
+					bitmap = BitmapFactory.decodeStream(new FileInputStream(imagePic));
+				} catch (FileNotFoundException e) {
+					// e.printStackTrace();
+				}
+			}
+		}
+		return bitmap;
+	}
+
+	// 将SD卡文件删除
+	public static void deleteFile(File file) {
+		if (sdState.equals(Environment.MEDIA_MOUNTED)) {
+			if (file.exists()) {
+				if (file.isFile()) {
+					file.delete();
+				}
+				// 如果它是一个目录
+				else if (file.isDirectory()) {
+					// 声明目录下所有的文件 files[];
+					File files[] = file.listFiles();
+					for (int i = 0; i < files.length; i++) { // 遍历目录下所有的文件
+						deleteFile(files[i]); // 把每个文件 用这个方法进行迭代
+					}
+				}
+				file.delete();
+			}
+		}
+	}
+
 }
