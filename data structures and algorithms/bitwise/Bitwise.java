@@ -1,9 +1,17 @@
 package test;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 public class Bitwise {
 
 	/*
+	 * 下面代码取自
 	 * https://discuss.leetcode.com/topic/50315/a-summary-how-to-use-bit-manipulation-to-solve-problems-easily-and-efficiently
+	 * 
+	 * 
 	WIKI
 
 	Bit manipulation is the act of algorithmically manipulating bits or other pieces of data shorter than a word. Computer programming tasks that require bit manipulation include low-level device control, error detection and correction algorithms, data compression, encryption algorithms, and optimization. For most other tasks, modern programming languages allow the programmer to work directly with abstractions instead of bits that represent those abstractions. Source code that does bit manipulation makes use of the bitwise operations: AND, OR, XOR, NOT, and bit shifts.
@@ -211,14 +219,6 @@ public class Bitwise {
 	/*
 
 
-	Reversing the bits in integer
-
-	BITWISE AND OF NUMBERS RANGE
-
-	Given a range [m, n] where 0 <= m <= n <= 2147483647, return the bitwise AND of all numbers in this range, inclusive. For example, given the range [5, 7], you should return 4.
-
-	Solution
-
 	int rangeBitwiseAnd(int m, int n) {
 	    int a = 0;
 	    while(m != n) {
@@ -228,11 +228,15 @@ public class Bitwise {
 	    }
 	    return m<<a; 
 	}
-	NUMBER OF 1 BITS
+	*/
+	
+	
+	/*
+	 * NUMBER OF 1 BITS
+	 * 
+	 * Write a function that takes an unsigned integer and returns the number of ’1' bits it has (also known as the Hamming weight).
 
-	Write a function that takes an unsigned integer and returns the number of ’1' bits it has (also known as the Hamming weight).
-
-	Solution
+	Solution(C++ version)
 
 	int hammingWeight(uint32_t n) {
 		int count = 0;
@@ -251,17 +255,27 @@ public class Bitwise {
 	    }
 	    return count;
 	}
-	Application
-
-	REPEATED DNA SEQUENCES
-
-	All DNA is composed of a series of nucleotides abbreviated as A, C, G, and T, for example: "ACGAATTCCG". When studying DNA, it is sometimes useful to identify repeated sequences within the DNA. Write a function to find all the 10-letter-long sequences (substrings) that occur more than once in a DNA molecule.
-	For example,
-	Given s = "AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT",
-	Return: ["AAAAACCCCC", "CCCCCAAAAA"].
-
-	Solution
-
+	 * 
+	 * */
+	
+	
+	/*
+	 * Application
+	 * 
+	 * */
+	
+	/*
+	 * REPEATED DNA SEQUENCES
+	 * 
+	 * All DNA is composed of a series of nucleotides abbreviated as A, C, G, and T, for example: "ACGAATTCCG". When studying DNA, it is sometimes useful to identify repeated sequences within the DNA. Write a function to find all the 10-letter-long sequences (substrings) that occur more than once in a DNA molecule.	
+	 * For example,	
+	 * Given s = "AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT",
+	 * Return: ["AAAAACCCCC", "CCCCCAAAAA"].
+	 * 
+	 * https://leetcode.com/problems/repeated-dna-sequences/
+	 * 
+	 * Solution(C++ version)
+	 
 	class Solution {
 	public:
 	    vector<string> findRepeatedDnaSequences(string s) {
@@ -278,30 +292,83 @@ public class Bitwise {
 	        return v;
 	    }
 	};
-	But the above solution can be invalid when repeated sequence appears too many times, in which case we should use unordered_map<int, int> keyMap to replace char keyMap[1<<21]{0}here.
-	MAJORITY ELEMENT
+	But the above solution can be invalid when repeated sequence appears too many times, in which case we should use unordered_map<int, int> keyMap to replace char keyMap[1<<21]{0}here.	
 
-	Given an array of size n, find the majority element. The majority element is the element that appears more than ⌊ n/2 ⌋ times. (bit-counting as a usual way, but here we actually also can adopt sorting and Moore Voting Algorithm)
-
-	Solution
-
+	 * 
+	 * Solution(Java version)
+	 * https://discuss.leetcode.com/topic/8894/clean-java-solution-hashmap-bits-manipulation
+	 */
+	public List<String> findRepeatedDnaSequences(String s) {
+        List<String> res = new ArrayList<String>();
+		if(null == s) return res;
+		Set<Integer> words = new HashSet<Integer>();
+		Set<Integer> doubleWords = new HashSet<Integer>();
+		int[] codeMap = new int[26];
+		//codeMap['A'-'A'] = 0; is default
+		codeMap['C'-'A'] = 1;
+		codeMap['G'-'A'] = 2;
+		codeMap['T'-'A'] = 3;
+		for(int i = 0; i < s.length() - 9; i++){
+			int code = 0;
+			for(int j = i; j < i+10; j++){
+				code <<= 2;
+				code |= codeMap[s.charAt(j) - 'A'];
+			}
+			if(!words.add(code) && doubleWords.add(code)){
+				res.add(s.substring(i, i+10));
+			}
+		}
+        return res;
+    }
+	
+	/*
+	 * MAJORITY ELEMENT
+	 * Given an array of size n, find the majority element. The majority element is the element that appears more than ⌊ n/2 ⌋ times. (bit-counting as a usual way, but here we actually also can adopt sorting and Moore Voting Algorithm)
+	 * 
+	 * https://leetcode.com/problems/majority-element/
+	 * 
+	 * Solution explanations 
+	 * https://discuss.leetcode.com/topic/17446/6-suggested-solutions-in-c-with-explanations
+	 * Another nice idea! The key lies in how to count the number of 1's on a specific bit. Specifically, you need a mask with a 1 on the i-the bit and 0 otherwise to get the i-th bit of each element in nums. The code is as follows.
+	 * 
 	int majorityElement(vector<int>& nums) {
-	    int len = sizeof(int)*8, size = nums.size();
-	    int count = 0, mask = 1, ret = 0;
-	    for(int i = 0; i < len; ++i) {
-	        count = 0;
-	        for(int j = 0; j < size; ++j)
-	            if(mask & nums[j]) count++;
-	        if(count > size/2) ret |= mask;
-	        mask <<= 1;
+        int major = 0, n = nums.size();
+        for (int i = 0, mask = 1; i < 32; i++, mask <<= 1) {
+            int bitCounts = 0;
+            for (int j = 0; j < n; j++) {
+                if (nums[j] & mask) bitCounts++;
+                if (bitCounts > n / 2) {
+                    major |= mask;
+                    break;
+                }
+            }
+        } 
+        return major;
+    } 
+	 * 
+	 * https://discuss.leetcode.com/topic/28601/java-solutions-sorting-hashmap-moore-voting-bit-manipulation
+	 * */
+	// Bit manipulation 
+	public int majorityElement(int[] nums) {
+	    int[] bit = new int[32];
+	    for (int num: nums)
+	        for (int i=0; i<32; i++) 
+	            if ((num>>(31-i) & 1) == 1)
+	                bit[i]++;
+	    int ret=0;
+	    for (int i=0; i<32; i++) {
+	        bit[i]=bit[i]>nums.length/2?1:0;
+	        ret += bit[i]*(1<<(31-i));
 	    }
 	    return ret;
 	}
-	SINGLE NUMBER III
-
-	Given an array of integers, every element appears three times except for one. Find that single one. (Still this type can be solved by bit-counting easily.) But we are going to solve it by digital logic design
-
-	Solution
+	
+	
+	/*
+	 * SINGLE NUMBER
+	 * Given an array of integers, every element appears three times except for one, which appears exactly once. Find that single one.
+	 * https://leetcode.com/problems/single-number-ii/
+	 * 
 
 	//inspired by logical circuit design and boolean algebra;
 	//counter - unit of 3;
@@ -325,7 +392,13 @@ public class Bitwise {
 	    }
 	    return a | b;
 	}
-	;
+	 * 
+	 * */
+	
+	
+	/*
+
+
 	MAXIMUM PRODUCT OF WORD LENGTHS
 
 	Given a string array words, find the maximum value of length(word[i]) * length(word[j]) where the two words do not share common letters. You may assume that each word will contain only lower case letters. If no such two words exist, return 0.
