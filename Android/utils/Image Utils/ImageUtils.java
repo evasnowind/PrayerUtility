@@ -16,6 +16,8 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -324,6 +326,31 @@ public class ImageUtils {
 		}
 		return newbm;
 	}
+	
+	
+	//使用BitmapFactory.Options的inSampleSize参数来缩放
+    public static Drawable resizeImage(String path,
+            int width,int height) 
+    {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;//不加载bitmap到内存中
+        BitmapFactory.decodeFile(path,options); 
+        int outWidth = options.outWidth;
+        int outHeight = options.outHeight;
+        options.inDither = false;
+        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+        options.inSampleSize = 1;
+         
+        if (outWidth != 0 && outHeight != 0 && width != 0 && height != 0) 
+        {
+            int sampleSize=(outWidth/width+outHeight/height)/2;
+            Log.d("mydebug", "sampleSize = " + sampleSize);
+            options.inSampleSize = sampleSize;
+        }
+     
+        options.inJustDecodeBounds = false;
+        return new BitmapDrawable(BitmapFactory.decodeFile(path, options));     
+    }
 
 	/**
 	 * 以屏幕宽度为基准，显示图片
